@@ -5,6 +5,7 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import static org.junit.Assert.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -38,7 +39,9 @@ public class HeroTest {
 
 	@Test
 	public void testHeroLevelUp() throws Exception {
-		// TODO
+		hero.levelUp();
+		assertTrue(hero.getLevel() > 1);
+		assertTrue(hero.getLevel() < 3);
 	}
 
 	@Test
@@ -47,4 +50,19 @@ public class HeroTest {
         assertThat(hero, hasProperty("name", is("Jaina Portvaillant")));
 	}
 
+	@Test
+	public void testHeroLife() throws Exception 
+	{
+		assertThat(hero, hasProperty("hp"));
+		assertThat(hero, hasProperty("hp", is(20)));
+	}
+
+	@Test
+	public void testTakeDmg() throws Exception
+	{
+		int hp = hero.getHp();
+		hero.takeDamage(2);
+		assertTrue(hp > hero.getHp());
+		assertFalse(hp <= 0);
+	}
 }
